@@ -2,32 +2,69 @@ import React, { useState } from 'react';
 
 export default function Form() {
 
-  const [userName,setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, setState] = useState({
+    firstName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  })
 
-  const onSubmit = (e) =>{
-    e.preventDefault();
-    let newUser = {userName,email,password};
-    console.log("Hello and welcome",newUser); 
-  } 
+  const onSubmit = (event) =>{
+    event.preventDefault();
+    const data = {...state};
+    console.log("Helo and Welcome",data);
+    setState("");
+
+  }
+
+  const onChange = (event) =>{
+    setState({
+      ...state,
+      [event.target.name]:event.target.value
+    });
+  }
+
+  const {firstName,lastName,email,password,confirmPassword} = state;
 
   return (
-    <form onSubmit={onSubmit} >
-      <h1>This is a react form</h1>
-      <label htmlFor="user">User Name: </label>
-      <input type="text" id="user" value={userName} onChange={e=>setUser(e.target.value)}/>
-      <br/>
+    <div className="Container">
+      <form  onSubmit={onSubmit}>
+        <h1>This is a react form</h1>
+        <label htmlFor="user">First Name: </label>
+        <input type="text" id="user" value={firstName} name="firstName" onChange={onChange}/>
+        <br/>
 
-      <label htmlFor="email">You Email: </label>
-      <input type="email" id="email" value={email} onChange={e=>setEmail(e.target.value)} />
-      <br/>
+        <label htmlFor="user">Last Name: </label>
+        <input type="text" id="user" value={lastName} name="lastName" onChange={onChange}/>
+        <br/>
 
-      <label htmlFor="password">Password: </label>
-      <input type="password" id="password" value={password} onChange={e=>setPassword(e.target.value)} />
-      <br/>
-      <input type="submit" value="Create User" />
-    </form>
+        <label htmlFor="email">You Email: </label>
+        <input type="email" id="email" value={email} name="email" onChange={onChange}/>
+        <br/>
+
+        <label htmlFor="password">Password: </label>
+        <input type="password" id="password" value={password} name="password" onChange={onChange} />
+        <br/>
+
+        <label htmlFor="password">Password: </label>
+        <input type="password" id="password" value={confirmPassword} name="confirmPassword" onChange={onChange}/>
+        <br/>
+
+        <input type="submit" value="Create User" />
+      </form>
+
+      <div className="data">
+        <h3>Real time data</h3>
+        <p>First Name: {firstName} </p>
+        <p>Las Name: {lastName}</p>
+        <p>Email: {email}</p>
+        <p>Password: {password}</p>
+        <p>Confirm password: {confirmPassword}</p>
+      </div>
+
+    </div>
+
   )
 }
 
