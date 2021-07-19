@@ -8,12 +8,15 @@ export default function Form() {
     email:"",
     password:"",
     confirmPassword:""
-  })
+  });
+
+  const [shippingStatus, setShipping] = useState(false);
 
   const onSubmit = (event) =>{
     event.preventDefault();
     const data = {...state};
     console.log("Helo and Welcome",data);
+    setShipping(true);
     setState("");
 
   }
@@ -25,10 +28,19 @@ export default function Form() {
     });
   }
 
+  const shipping = () =>{
+    if(shippingStatus == true){
+        return "Thank you for submitting the form!";
+    }else{
+        return "Welcome, please submit the form";
+    }
+  }
+
   const {firstName,lastName,email,password,confirmPassword} = state;
 
   return (
     <div className="Container">
+      <h1>{ shipping() }</h1>
       <form  onSubmit={onSubmit}>
         <h1>This is a react form</h1>
         <label htmlFor="user">First Name: </label>
