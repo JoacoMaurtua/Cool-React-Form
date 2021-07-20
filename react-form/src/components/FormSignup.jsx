@@ -9,6 +9,11 @@ export default function FormSignup() {
       password2:''
   });
 
+  const inputName = useRef(null);
+  const inputEmail = useRef(null);
+  const inputPass = useRef(null);
+  const inputPass2 = useRef(null);
+
   const onChange = (event) =>{
       const {name,value} = event.target;
       setState({
@@ -17,11 +22,21 @@ export default function FormSignup() {
       });
   }
 
+  const onSubmit = (event) =>{
+      event.preventDefault();
+      const data = {...state};
+      console.log("Welcome",data);
+      inputName.current.value = '';
+      inputEmail.current.value = '';
+      inputPass.current.value = '';
+      inputPass2.current.value = '';
+  }
+
   const {userName,email,password,password2} = state;
 
   return (
     <div className="form-content-right">
-      <form className="form" onSubmit={ (e) => e.preventDefault()}>
+      <form className="form" onSubmit={ onSubmit }>
         <h1>
           The Falcodev community welcomes all those who wish to be 
           aware of the latest in information technology as well as 
@@ -37,6 +52,7 @@ export default function FormSignup() {
               type="text" 
               name="userName"
               value = {userName}
+              ref = {inputName}
               className="form-input"
               placeholder="Enter your userName"
               onChange = {onChange}
@@ -52,6 +68,7 @@ export default function FormSignup() {
               type="email" 
               name="email"
               value = {email}
+              ref = {inputEmail}
               className="form-input" 
               placeholder="Enter your email"
               onChange = {onChange}
@@ -67,6 +84,7 @@ export default function FormSignup() {
               type="password" 
               name="password"
               value = {password}
+              ref = {inputPass}
               className="form-input" 
               placeholder="Enter your password"
               onChange = {onChange}
@@ -82,6 +100,7 @@ export default function FormSignup() {
               type="password2" 
               name="password2"
               value = {password2}
+              ref = {inputPass2}
               className="form-input" 
               placeholder="Enter your password again"
               onChange = {onChange}
