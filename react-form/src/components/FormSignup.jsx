@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState,useRef } from 'react'
 
 export default function FormSignup() {
+
+  const [state,setState] = useState({
+      userName:'',
+      email:'',
+      password:'',
+      password2:''
+  });
+
+  const onChange = (event) =>{
+      const {name,value} = event.target;
+      setState({
+        ...state,
+        [name]:value
+      });
+  }
+
+  const {userName,email,password,password2} = state;
+
   return (
     <div className="form-content-right">
-      <form className="form">
+      <form className="form" onSubmit={ (e) => e.preventDefault()}>
         <h1>
           The Falcodev community welcomes all those who wish to be 
           aware of the latest in information technology as well as 
@@ -18,8 +36,10 @@ export default function FormSignup() {
               id="userName"
               type="text" 
               name="userName"
+              value = {userName}
               className="form-input"
               placeholder="Enter your userName"
+              onChange = {onChange}
           />
         </div>
 
@@ -30,9 +50,11 @@ export default function FormSignup() {
           <input 
               id="email"
               type="email" 
-              name="userName"
+              name="email"
+              value = {email}
               className="form-input" 
               placeholder="Enter your email"
+              onChange = {onChange}
           />
         </div>
 
@@ -44,8 +66,10 @@ export default function FormSignup() {
               id="password"
               type="password" 
               name="password"
+              value = {password}
               className="form-input" 
               placeholder="Enter your password"
+              onChange = {onChange}
           />
         </div>
 
@@ -57,8 +81,10 @@ export default function FormSignup() {
               id="password2"
               type="password2" 
               name="password2"
+              value = {password2}
               className="form-input" 
               placeholder="Enter your password again"
+              onChange = {onChange}
           />
         </div>
 
