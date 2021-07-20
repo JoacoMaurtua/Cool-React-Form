@@ -55,13 +55,10 @@ export default function FormSignup({submitForm}) {
     inputEmail.current.value = "";
     inputPass.current.value = "";
     inputPass2.current.value = "";
-    
 
   }
 
   
-    
-
   return (
     <div className="form-content-right">
       <form className="form" onSubmit={ onSubmit }>
