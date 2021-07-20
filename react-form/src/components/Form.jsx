@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 export default function Form() {
 
@@ -10,18 +10,16 @@ export default function Form() {
     confirmPassword:""
   });
 
+  const inputFirst = useRef(null);
+  const inputLast = useRef(null);
+  const inputEmail = useRef(null);
+  const inputPass = useRef(null);
+  const inputConfirm = useRef(null);
+  
+
   const [shippingStatus, setShipping] = useState(false);
 
-  const [inputError, setInputError] = useState(""); 
-
-  const onSubmit = (event) =>{
-    event.preventDefault();
-    const data = {...state};
-    console.log("Helo and Welcome",data);
-    setShipping(true);
-    setState("");
-
-  }
+  
 
   const onChange = (event) =>{
     setState({
@@ -29,11 +27,19 @@ export default function Form() {
       [event.target.name]:event.target.value
     });
     
-    if(event.target.value.length < 1){
-      setInputError("Input is required!");
-    }else if(event.target.value.length < 3){
-      setInputError("Title must be 3 characters or longer!");
-    }
+  }
+
+  const onSubmit = (event) =>{
+    event.preventDefault();
+    const data = {...state};
+    console.log("Helo and Welcome",data);
+    /* setState(""); */ // ESTO DA UN ERROR
+    inputFirst.current.value = "";
+    inputLast.current.value = "";
+    inputEmail.current.value = "";
+    inputPass.current.value = "";
+    inputConfirm.current.value = "";
+    setShipping(true);
   }
 
   /* const shipping = () =>{
@@ -52,36 +58,56 @@ export default function Form() {
 
         {
           shippingStatus?
-          <h3>Thank you for submitting the form!</h3>:
-          <h3>Welcome, please submit the form</h3>
+          <p>Thank you for submitting the form!</p>:
+          <p>Welcome, please submit the form</p>
         }
 
       </h1>
       <form  onSubmit={onSubmit}>
         <h1>This is a react form</h1>
         <label htmlFor="user">First Name: </label>
-        <input type="text" id="user" value={firstName} name="firstName" onChange={onChange}/>
+        <input type="text" id="user" ref={inputFirst} value={firstName} name="firstName" onChange={onChange}/>
         {
-          inputError?
-          <p> {inputError} </p>:
+          (firstName.length > 0 && firstName.length < 2)?
+          <p style={{color:"red"}}>Must be at least two characters</p>:
           ''
         }
         <br/>
 
         <label htmlFor="user">Last Name: </label>
-        <input type="text" id="user" value={lastName} name="lastName" onChange={onChange}/>
+        <input type="text" id="user" ref ={inputLast} value={lastName} name="lastName" onChange={onChange}/>
+        {
+          (lastName.length > 0 && lastName.length < 2)?
+          <p style={{color:"red"}}>Must be at least two characters</p>:
+          ''
+        }
         <br/>
 
         <label htmlFor="email">You Email: </label>
-        <input type="email" id="email" value={email} name="email" onChange={onChange}/>
+        <input type="email" id="email" ref={inputEmail} value={email} name="email" onChange={onChange}/>
+        {
+          (email.length > 0 && email.length < 5)?
+          <p style={{color:"red"}}>Must be at least five characters</p>:
+          ''
+        }
         <br/>
 
         <label htmlFor="password">Password: </label>
-        <input type="password" id="password" value={password} name="password" onChange={onChange} />
+        <input type="password" id="password" ref={inputPass} value={password} name="password" onChange={onChange} />
+        {
+          (password.length > 0 && password.length < 8)?
+          <p style={{color:"red"}}>Must be at least eight characters</p>:
+          ''
+        }
         <br/>
 
         <label htmlFor="password">Password: </label>
-        <input type="password" id="password" value={confirmPassword} name="confirmPassword" onChange={onChange}/>
+        <input type="password" id="password" ref={inputConfirm} value={confirmPassword} name="confirmPassword" onChange={onChange}/>
+        {
+          ( confirmPassword.length > 0 && confirmPassword !== password)?
+          <p style={{color:"red"}}>Passwords must match</p>:
+          ''
+        }
         <br/>
 
         <input type="submit" value="Create User" />
