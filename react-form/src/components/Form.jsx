@@ -12,6 +12,8 @@ export default function Form() {
 
   const [shippingStatus, setShipping] = useState(false);
 
+  const [inputError, setInputError] = useState(""); 
+
   const onSubmit = (event) =>{
     event.preventDefault();
     const data = {...state};
@@ -26,25 +28,44 @@ export default function Form() {
       ...state,
       [event.target.name]:event.target.value
     });
+    
+    if(event.target.value.length < 1){
+      setInputError("Input is required!");
+    }else if(event.target.value.length < 3){
+      setInputError("Title must be 3 characters or longer!");
+    }
   }
 
-  const shipping = () =>{
+  /* const shipping = () =>{
     if(shippingStatus == true){
         return "Thank you for submitting the form!";
     }else{
         return "Welcome, please submit the form";
     }
-  }
+  }    SE REMPLAZA USANDO EL OPERADOR TERNARIO MAS ABAJO*/
 
   const {firstName,lastName,email,password,confirmPassword} = state;
 
   return (
     <div className="Container">
-      <h1>{ shipping() }</h1>
+      <h1>
+
+        {
+          shippingStatus?
+          <h3>Thank you for submitting the form!</h3>:
+          <h3>Welcome, please submit the form</h3>
+        }
+
+      </h1>
       <form  onSubmit={onSubmit}>
         <h1>This is a react form</h1>
         <label htmlFor="user">First Name: </label>
         <input type="text" id="user" value={firstName} name="firstName" onChange={onChange}/>
+        {
+          inputError?
+          <p> {inputError} </p>:
+          ''
+        }
         <br/>
 
         <label htmlFor="user">Last Name: </label>
