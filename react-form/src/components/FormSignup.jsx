@@ -1,6 +1,11 @@
 import React, { useState,useRef } from 'react'
 
-export default function FormSignup() {
+export default function FormSignup({submitForm}) {
+
+  const inputName = useRef(null);
+  const inputEmail = useRef(null);
+  const inputPass = useRef(null);
+  const inputPass2 = useRef(null);
 
   const [state,setState] = useState({
       userName:'',
@@ -13,10 +18,7 @@ export default function FormSignup() {
 
   const [errors,setErrors] = useState({});
 
-  const inputName = useRef(null);
-  const inputEmail = useRef(null);
-  const inputPass = useRef(null);
-  const inputPass2 = useRef(null);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const onChange = (event) =>{
       const {name,value} = event.target;
@@ -46,13 +48,19 @@ export default function FormSignup() {
     const data = {...state};
     console.log("Welcome",data);
     setErrors(SubmitValidation(state));
+  
+    setIsSubmit(true);
+
     inputName.current.value = "";
     inputEmail.current.value = "";
     inputPass.current.value = "";
     inputPass2.current.value = "";
+    
 
   }
 
+  
+    
 
   return (
     <div className="form-content-right">

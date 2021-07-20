@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 export default function FormSuccess() {
   return (
-    <div>
-      
+    <div className="form-content-right">
+      <div className="form-success">
+        We have received your request!
+      </div>
+      <img src="img/img-3.svg" alt="succes-image"
+      className="form-img-2" />
     </div>
-  )
+  );
 }
