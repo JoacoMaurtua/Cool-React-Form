@@ -1,4 +1,5 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef } from 'react';
+
 
 export default function FormSignup({submitForm}) {
 
@@ -191,9 +192,11 @@ export default function FormSignup({submitForm}) {
 
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button className="form-input-btn" type="submit">
+          Sign Up
+        </button>
 
-        <span>
+        <span className="form-input-login">
           Already have an account?
           Login <a href="#">here</a>
         </span>
