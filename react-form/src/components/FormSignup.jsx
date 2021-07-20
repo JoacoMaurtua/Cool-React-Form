@@ -9,6 +9,10 @@ export default function FormSignup() {
       password2:''
   });
 
+  const {userName,email,password,password2} = state;
+
+  const [errors,setErrors] = useState({});
+
   const inputName = useRef(null);
   const inputEmail = useRef(null);
   const inputPass = useRef(null);
@@ -22,32 +26,33 @@ export default function FormSignup() {
       });
   }
 
-  
-  const inputRequired = () =>{
-    var inp = document.getElementsByTagName('input');
-    for(var i in inp){
-      if(!/^\d{1,}$/.test(inp[i].value)){
-          if(inp[i].type === "text" || inp[i].type === "email" || inp[i].type === "password" ){
-            alert("You missed filling one of the fields"); 
-            inp[i].focus();
-            break;
-        }
-      }
-    }
+  const SubmitValidation = (state) =>{
+    let errors = {};
+
+    if(!state.userName.trim()) { errors.userName = 'Username required!'};
+     
+    if(!state.email) {errors.email = 'Email required!'};
+      
+    if(!state.password){errors.password = 'Password required!'};
+      
+    if(!state.password2){errors.password2 = 'Confirm password required!'};
+    
+    return errors;
   } 
+  
 
   const onSubmit = (event) =>{
     event.preventDefault();
     const data = {...state};
     console.log("Welcome",data);
-    inputRequired();
-    inputName.current.value = '';
-    inputEmail.current.value = '';
-    inputPass.current.value = '';
-    inputPass2.current.value = '';
+    setErrors(SubmitValidation(state));
+    inputName.current.value = "";
+    inputEmail.current.value = "";
+    inputPass.current.value = "";
+    inputPass2.current.value = "";
+
   }
 
-  const {userName,email,password,password2} = state;
 
   return (
     <div className="form-content-right">
@@ -72,8 +77,15 @@ export default function FormSignup() {
               placeholder="Enter your userName"
               onChange = {onChange}
           />
-
+          {
+            //Submit validation:
+            (errors.userName)?
+            <p style={{color:'red'}}>{errors.userName}</p>:
+            ''
+          }
+        
           {  
+            //Input validation:
             (userName.length > 0 && userName.length < 5)?
             <p style={{color:"red"}}>User name must be at least five characters</p>:
             ''
@@ -96,6 +108,20 @@ export default function FormSignup() {
               onChange = {onChange}
           />
 
+          {
+            //Submit validation:
+            (errors.email)?
+            <p style={{color:'red'}}>{errors.email}</p>:
+            ''
+          }
+
+          {
+            //Input validation:
+            (email.length > 0 && !/\S+@\S+\.\S+/.test(email))?
+            <p style={{color:'red'}}>Email address is invalid</p>:
+            ''
+          }
+
         </div>
 
         <div className="form-inputs">
@@ -112,6 +138,21 @@ export default function FormSignup() {
               placeholder="Enter your password"
               onChange = {onChange}
           />
+
+          {
+            //Submit validation:
+            (errors.password)?
+            <p style={{color:'red'}}>{errors.password}</p>:
+            ''
+          }
+
+          {
+            //Input validation:
+            (password.length > 0 && password.length < 8)?
+            <p style={{color:"red"}}>Password must be at least eight characters</p>:
+            ''
+          }
+
         </div>
 
         <div className="form-inputs">
@@ -120,7 +161,7 @@ export default function FormSignup() {
           </label>
           <input 
               id="password2"
-              type="password2" 
+              type="password" 
               name="password2"
               value = {password2}
               ref = {inputPass2}
@@ -128,6 +169,21 @@ export default function FormSignup() {
               placeholder="Enter your password again"
               onChange = {onChange}
           />
+
+          {
+            //Submit validation:
+            (errors.password2)?
+            <p style={{color:'red'}}>{errors.password2}</p>:
+            ''
+          }
+
+          {
+            //Input validation:
+            (password2.length > 0 && password2 !== password)?
+            <p style={{color:'red'}}>Passwords must match</p>:
+            ''
+          }
+
         </div>
 
         <button type="submit">Sign Up</button>
