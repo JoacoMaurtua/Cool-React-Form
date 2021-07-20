@@ -12,8 +12,35 @@ const FormContainer = styled.div`
   height: 600px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-
 ` 
+
+const CloseBtn = styled.span`
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  font-size: 1.5rem;
+  z-index: 1;
+  cursor: pointer;
+`
+
+const FormContentLeft = styled.div`
+  background: linear-gradient(
+    90deg,
+    rgb(39, 176, 255) 0%,
+    rgb(0, 232, 236) 100%
+  );
+  border-radius: 10px 0 0 10px;
+  position: relative;
+`
+
+const FormImg = styled.img`
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
 
 export default function CoolForm() {
 
@@ -25,11 +52,11 @@ export default function CoolForm() {
   return (
     <>
       <FormContainer>
-          <span className="close-btn">x</span>
-          <div className="form-content-left">
-            <img src="img/img-2.svg" alt="spaceship"
+          <CloseBtn>x</CloseBtn>
+          <FormContentLeft>
+            <FormImg src="img/img-2.svg" alt="spaceship"
             className="form-img" />
-          </div>
+          </FormContentLeft>
           {  
             (!isSubmit)?
             <FormSignup submitForm={submitForm}/>:
