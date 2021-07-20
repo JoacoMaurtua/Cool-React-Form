@@ -22,14 +22,29 @@ export default function FormSignup() {
       });
   }
 
+  
+  const inputRequired = () =>{
+    var inp = document.getElementsByTagName('input');
+    for(var i in inp){
+      if(!/^\d{1,}$/.test(inp[i].value)){
+          if(inp[i].type === "text" || inp[i].type === "email" || inp[i].type === "password" ){
+            alert("You missed filling one of the fields"); 
+            inp[i].focus();
+            break;
+        }
+      }
+    }
+  } 
+
   const onSubmit = (event) =>{
-      event.preventDefault();
-      const data = {...state};
-      console.log("Welcome",data);
-      inputName.current.value = '';
-      inputEmail.current.value = '';
-      inputPass.current.value = '';
-      inputPass2.current.value = '';
+    event.preventDefault();
+    const data = {...state};
+    console.log("Welcome",data);
+    inputRequired();
+    inputName.current.value = '';
+    inputEmail.current.value = '';
+    inputPass.current.value = '';
+    inputPass2.current.value = '';
   }
 
   const {userName,email,password,password2} = state;
@@ -57,6 +72,13 @@ export default function FormSignup() {
               placeholder="Enter your userName"
               onChange = {onChange}
           />
+
+          {  
+            (userName.length > 0 && userName.length < 5)?
+            <p style={{color:"red"}}>User name must be at least five characters</p>:
+            ''
+          }
+
         </div>
 
         <div className="form-inputs">
@@ -73,6 +95,7 @@ export default function FormSignup() {
               placeholder="Enter your email"
               onChange = {onChange}
           />
+
         </div>
 
         <div className="form-inputs">
