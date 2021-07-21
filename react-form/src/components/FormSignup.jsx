@@ -86,14 +86,14 @@ export default function FormSignup({submitForm}) {
           {
             //Submit validation:
             (errors.userName)?
-            <p style={{color:'red'}}>{errors.userName}</p>:
+            <p>{errors.userName}</p>:
             ''
           }
         
           {  
             //Input validation:
             (userName.length > 0 && userName.length < 5)?
-            <p style={{color:"red"}}>User name must be at least five characters</p>:
+            <p>User name must be at least five characters</p>:
             ''
           }
 
@@ -117,14 +117,14 @@ export default function FormSignup({submitForm}) {
           {
             //Submit validation:
             (errors.email)?
-            <p style={{color:'red'}}>{errors.email}</p>:
+            <p>{errors.email}</p>:
             ''
           }
 
           {
             //Input validation:
             (email.length > 0 && !/\S+@\S+\.\S+/.test(email))?
-            <p style={{color:'red'}}>Email address is invalid</p>:
+            <p>Email address is invalid</p>:
             ''
           }
 
@@ -148,14 +148,14 @@ export default function FormSignup({submitForm}) {
           {
             //Submit validation:
             (errors.password)?
-            <p style={{color:'red'}}>{errors.password}</p>:
+            <p>{errors.password}</p>:
             ''
           }
 
           {
             //Input validation:
             (password.length > 0 && password.length < 8)?
-            <p style={{color:"red"}}>Password must be at least eight characters</p>:
+            <p>Password must be at least eight characters</p>:
             ''
           }
 
@@ -179,14 +179,14 @@ export default function FormSignup({submitForm}) {
           {
             //Submit validation:
             (errors.password2)?
-            <p style={{color:'red'}}>{errors.password2}</p>:
+            <p>{errors.password2}</p>:
             ''
           }
 
           {
             //Input validation:
             (password2.length > 0 && password2 !== password)?
-            <p style={{color:'red'}}>Passwords must match</p>:
+            <p>Passwords must match</p>:
             ''
           }
 
