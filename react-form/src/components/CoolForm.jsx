@@ -52,6 +52,7 @@ export default function CoolForm() {
   const submitForm = () =>{
     setIsSubmit(true)
   }
+  
   return (
     <>
       <FormContainer>
@@ -60,12 +61,11 @@ export default function CoolForm() {
             <FormImg src="img/img-2.svg" alt="spaceship"
              />
           </FormContentLeft>
-          {  
-            (!isSubmit)?
-            <FormSignup submitForm={submitForm}/>:
-            <FormSuccess/>
-          } 
-
+          {!isSubmit ? (
+            <FormSignup submitForm={submitForm} />
+          ) : (
+            <FormSuccess />
+          )}
       </FormContainer>
     </>
   )

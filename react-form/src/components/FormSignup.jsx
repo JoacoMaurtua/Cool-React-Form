@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 
 
 export default function FormSignup({submitForm}) {
@@ -59,7 +59,6 @@ export default function FormSignup({submitForm}) {
 
   }
 
-  
   return (
     <div className="form-content-right">
       <form className="form" onSubmit={ onSubmit }>
